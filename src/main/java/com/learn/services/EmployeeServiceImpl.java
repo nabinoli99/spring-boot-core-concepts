@@ -9,6 +9,7 @@ import com.learn.exception.ConflictException;
 import com.learn.exception.ResourceNotFoundException;
 import com.learn.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public EmployeeResponseDTO registerEmployee(EmployeeRegistrationRequestDTO request) {
@@ -30,7 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setFirstName(request.getFirstName());
         employee.setLastName(request.getLastName());
         employee.setEmail(request.getEmail());
-        employee.setPassword(request.getPassword());
+        employee.setPassword(passwordEncoder.encode(request.getPassword()));
         employee.setDepartment(request.getDepartment());
         employee.setSalary(request.getSalary());
         employee.setActive(true);
