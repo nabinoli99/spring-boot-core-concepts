@@ -65,7 +65,6 @@ public class EmployeeController
     /**
      For deleting/removing the each employee with specific id
      */
-
    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<EmployeeResponseDTO>>deleteEmployeeById(
             @PathVariable Long id) {
