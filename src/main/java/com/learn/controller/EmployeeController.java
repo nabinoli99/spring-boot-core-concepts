@@ -3,6 +3,7 @@ package com.learn.controller;
 import com.learn.common.ApiResponse;
 import com.learn.common.ApiResponseUtil;
 import com.learn.dto.request.EmployeeRegistrationRequestDTO;
+import com.learn.dto.request.EmployeeUpdateRequestDTO;
 import com.learn.dto.response.EmployeeResponseDTO;
 import com.learn.dto.response.EmployeeSummaryDTO;
 import com.learn.services.EmployeeService;
@@ -49,5 +50,26 @@ public class EmployeeController
     public ResponseEntity<ApiResponse<EmployeeResponseDTO>> getEmployeeById(@PathVariable Long id){
         EmployeeResponseDTO dto = employeeService.getEmployeeById(id);
         return ResponseEntity.ok(ApiResponseUtil.success("Employee Fetched Successfully",dto));
+   }
+
+    /**
+     For updating the each employee with specific id
+     */
+   @PutMapping("/update/{id}")
+    public ResponseEntity<ApiResponse<EmployeeResponseDTO>>updateEmployeeById(
+            @PathVariable Long id , @RequestBody EmployeeUpdateRequestDTO request){
+        EmployeeResponseDTO dto = employeeService.updateEmployee(id,request);
+        return ResponseEntity.ok(ApiResponseUtil.success("Employee Details Updated Sucessfullyy",dto));
+   }
+
+    /**
+     For deleting/removing the each employee with specific id
+     */
+
+   @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<EmployeeResponseDTO>>deleteEmployeeById(
+            @PathVariable Long id) {
+        employeeService.deleteEmployee(id);
+        return ResponseEntity.ok(ApiResponseUtil.success("Student delted Successsfully",null));
    }
 }
