@@ -23,7 +23,12 @@ springboot-core-concepts/
             └── com/learn/
                 ├── common/
                 │   ├── ApiResponse.java
-                │   └── ApiResponseUtil.java
+                │   ├── ApiResponseUtil.java
+                │   └── PageResponse.java
+                ├── config/
+                │   └── AppConfig.java
+                ├── controller/
+                │   └── EmployeeController.java
                 ├── dto/
                 │   ├── request/
                 │   │   ├── EmployeeRegistrationRequestDTO.java
@@ -40,10 +45,13 @@ springboot-core-concepts/
                 │   └── ResourceNotFoundException.java
                 ├── repository/
                 │   └── EmployeeRepository.java
-                ├── service/
-                │   ├── impl/
-                │   │   └── EmployeeServiceImpl.java
-                │   └── EmployeeService.java
+                ├── security/
+                │   ├── CustomUserDetailsService.java
+                │   ├── SecurityConfig.java
+                │   └── SecurityUtils.java
+                ├── services/
+                │   ├── EmployeeService.java
+                │   └── EmployeeServiceImpl.java
                 └── SpringbootCoreConceptsApplication.java
 ```
 
