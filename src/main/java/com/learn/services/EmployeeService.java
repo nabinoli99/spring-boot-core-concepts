@@ -1,5 +1,6 @@
 package com.learn.services;
 
+import com.learn.common.PageResponse;
 import com.learn.dto.request.EmployeeRegistrationRequestDTO;
 import com.learn.dto.request.EmployeeUpdateRequestDTO;
 import com.learn.dto.response.EmployeeResponseDTO;
@@ -15,4 +16,6 @@ public interface EmployeeService {
     List<EmployeeSummaryDTO>getAllEmployees();
     EmployeeResponseDTO updateEmployee (Long id , EmployeeUpdateRequestDTO request);
     void deleteEmployee(Long id);
+    PageResponse<EmployeeSummaryDTO> getAllEmployeesPaginated(int page , int size , String sortBy, String sortDir );
+
 }
