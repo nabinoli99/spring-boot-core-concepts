@@ -5,9 +5,11 @@ import com.learn.dto.request.EmployeeRegistrationRequestDTO;
 import com.learn.dto.request.EmployeeUpdateRequestDTO;
 import com.learn.dto.response.EmployeeResponseDTO;
 import com.learn.dto.response.EmployeeSummaryDTO;
+import com.learn.entity.Department;
 import com.learn.entity.Employee;
 import com.learn.exception.ConflictException;
 import com.learn.exception.ResourceNotFoundException;
+import com.learn.repository.DepartmentRepository;
 import com.learn.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final PasswordEncoder passwordEncoder;
+    private final DepartmentRepository departmentRepository;
 
     @Override
     public EmployeeResponseDTO registerEmployee(EmployeeRegistrationRequestDTO request) {
@@ -33,12 +36,15 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new ConflictException("Email already Registered: "+request.getEmail());
         }
 
+        Department department = departmentRepository.findById(request.getDepartmentId())
+                .orElseThrow(()-> new ResourceNotFoundException("Department not found with id: "+request.getDepartmentId()));
+
         Employee employee = new Employee();
         employee.setFirstName(request.getFirstName());
         employee.setLastName(request.getLastName());
         employee.setEmail(request.getEmail());
         employee.setPassword(passwordEncoder.encode(request.getPassword()));
-        employee.setDepartment(request.getDepartment());
+        employee.setDepartment(department);
         employee.setSalary(request.getSalary());
         employee.setActive(true);
 
@@ -79,8 +85,10 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee.setEmail(request.getEmail());
         }
 
-        if(request.getDepartment()!=null){
-            employee.setDepartment(request.getDepartment());
+        if(request.getDepartmentId()!=null){
+            Department department = departmentRepository.findById(request.getDepartmentId())
+                    .orElseThrow(()-> new ResourceNotFoundException("Department not found with id: "+request.getDepartmentId()));
+                    employee.setDepartment(department);
         }
 
         if(request.getSalary()!=0)
@@ -106,7 +114,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         dto.setId(employee.getId());
         dto.setFullName(employee.getFirstName() + " "+ employee.getLastName());
         dto.setEmail(employee.getEmail());
-        dto.setDepartment(employee.getDepartment());
+        dto.setDepartmentName(employee.getDepartment().getName());
         dto.setSalary(employee.getSalary());
         dto.setActive(employee.isActive());
         return dto;
@@ -117,7 +125,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         dto.setId(employee.getId());
         dto.setFullName(employee.getFirstName() + " "+ employee.getLastName());
         dto.setEmail(employee.getEmail());
-        dto.setDepartment(employee.getDepartment());
+        dto.setDepartmentName(employee.getDepartment().getName());
         return dto;
     }
 
