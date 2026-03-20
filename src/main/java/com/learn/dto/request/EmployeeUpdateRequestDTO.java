@@ -10,7 +10,7 @@ public class EmployeeUpdateRequestDTO {
 
     private String email;
 
-    private String department;
+    private Long departmentId;
 
     private double salary;
 }
