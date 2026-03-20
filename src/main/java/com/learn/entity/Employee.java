@@ -22,7 +22,10 @@ public class Employee {
     private String email;
 
     private String password;
-    private String department;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
     private double salary;
     private boolean active;
 
