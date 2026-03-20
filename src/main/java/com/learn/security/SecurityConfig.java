@@ -22,6 +22,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/employees/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/employees").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/employees/paginated").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic -> {});
