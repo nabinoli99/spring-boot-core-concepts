@@ -1,5 +1,6 @@
 package com.learn.services;
 
+import com.learn.common.PageResponse;
 import com.learn.dto.request.EmployeeRegistrationRequestDTO;
 import com.learn.dto.request.EmployeeUpdateRequestDTO;
 import com.learn.dto.response.EmployeeResponseDTO;
@@ -9,6 +10,10 @@ import com.learn.exception.ConflictException;
 import com.learn.exception.ResourceNotFoundException;
 import com.learn.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -114,5 +119,31 @@ public class EmployeeServiceImpl implements EmployeeService {
         dto.setEmail(employee.getEmail());
         dto.setDepartment(employee.getDepartment());
         return dto;
+    }
+
+    @Override
+    public PageResponse<EmployeeSummaryDTO> getAllEmployeesPaginated(int page, int size, String sortBy, String sortDir) {
+       Sort sort = sortDir.equalsIgnoreCase("asc")
+               ? Sort.by(sortBy).ascending()
+               : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page ,size,sort);
+        Page<Employee> employeePage = employeeRepository.findAll(pageable);
+
+        List<EmployeeSummaryDTO> content = employeePage.getContent()
+                .stream()
+                .map(this::mapToSummaryDTO)
+                .collect(Collectors.toList());
+
+        return PageResponse.<EmployeeSummaryDTO>builder()
+                .content(content)
+                .pageNumber(employeePage.getNumber())
+                .pageSize(employeePage.getSize())
+                .totalElements(employeePage.getTotalElements())
+                .totalPages(employeePage.getTotalPages())
+                .isLastPage(employeePage.isLast())
+                .build();
+
+
     }
 }
