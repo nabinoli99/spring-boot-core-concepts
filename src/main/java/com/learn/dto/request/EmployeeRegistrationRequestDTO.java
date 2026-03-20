@@ -22,7 +22,7 @@ public class EmployeeRegistrationRequestDTO{
     @Size(min = 6 , max = 18)
     private String password;
 
-    private String department;
+    private Long departmentId;
 
     private double salary;
 
