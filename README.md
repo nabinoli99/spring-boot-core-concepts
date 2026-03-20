@@ -28,6 +28,7 @@ springboot-core-concepts/
                 ├── config/
                 │   └── AppConfig.java
                 ├── controller/
+                │   ├── DepartmentController.java
                 │   └── EmployeeController.java
                 ├── dto/
                 │   ├── request/
@@ -37,6 +38,7 @@ springboot-core-concepts/
                 │       ├── EmployeeResponseDTO.java
                 │       └── EmployeeSummaryDTO.java
                 ├── entity/
+                │   ├── Department.java
                 │   └── Employee.java
                 ├── exception/
                 │   ├── BadRequestException.java
@@ -44,6 +46,7 @@ springboot-core-concepts/
                 │   ├── GlobalExceptionHandler.java
                 │   └── ResourceNotFoundException.java
                 ├── repository/
+                │   ├── DepartmentRepository.java
                 │   └── EmployeeRepository.java
                 ├── security/
                 │   ├── CustomUserDetailsService.java
