@@ -3,7 +3,8 @@ package com.learn.common;
 import java.time.LocalDateTime;
 
 public class ApiResponseUtil {
-    public static <T> ApiResponse<T>success(String message ,T data){
+    public static <T> ApiResponse <T> success (String message ,T data)
+    {
      return ApiResponse.<T>builder()
              .success(true)
              .message(message)
@@ -12,7 +13,7 @@ public class ApiResponseUtil {
              .build();
     }
 
-    public static <T> ApiResponse<T> error(String message){
+    public static <T> ApiResponse<T> error(String message) {
         return ApiResponse.<T>builder()
                 .success(false)
                 .message(message)
