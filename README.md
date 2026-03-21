@@ -38,6 +38,7 @@ springboot-core-concepts/
                 │       ├── EmployeeResponseDTO.java
                 │       └── EmployeeSummaryDTO.java
                 ├── entity/
+                │   ├── BaseEntity.java
                 │   ├── Department.java
                 │   └── Employee.java
                 ├── exception/
