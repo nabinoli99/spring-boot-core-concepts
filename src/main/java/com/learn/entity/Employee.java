@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "employees")
 @NoArgsConstructor
 @Data
-public class Employee {
+public class Employee extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
