@@ -2,6 +2,8 @@ package com.learn.dto.response;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class EmployeeResponseDTO {
 
@@ -11,5 +13,6 @@ public class EmployeeResponseDTO {
     private String departmentName;
     private double salary;
     private boolean active;
-
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
