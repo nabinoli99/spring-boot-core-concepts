@@ -22,7 +22,7 @@ public class EmployeeController
     private final EmployeeService employeeService;
 
     /**
-     For Registering the employee
+     Register the employee
      */
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<EmployeeResponseDTO>> registerEmployee(
@@ -34,7 +34,7 @@ public class EmployeeController
    }
 
     /**
-     For fetching all the employee
+     Get all the employee
      */
     @GetMapping
     public ResponseEntity<ApiResponse<List<EmployeeSummaryDTO>>> getAllEmployees(){
@@ -43,7 +43,7 @@ public class EmployeeController
     }
 
     /**
-     For fetching all the employee through pagination
+     Get all the employee through pagination
      */
     @GetMapping("/paginated")
     public ResponseEntity<ApiResponse<PageResponse<EmployeeSummaryDTO>>> getALlEmployeesPaginated(
@@ -56,7 +56,7 @@ public class EmployeeController
     }
 
     /**
-     For fetching the each employee with specific id
+     Get each employee with specific id
      */
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<EmployeeResponseDTO>> getEmployeeById(@PathVariable Long id){
@@ -65,7 +65,7 @@ public class EmployeeController
    }
 
     /**
-     For updating the each employee with specific id
+     Update each employee with specific id
      */
    @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<EmployeeResponseDTO>>updateEmployeeById(
@@ -75,12 +75,40 @@ public class EmployeeController
    }
 
     /**
-     For deleting/removing the each employee with specific id
+     Delete each employee with specific id
      */
    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>>deleteEmployeeById(
             @PathVariable Long id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.ok(ApiResponseUtil.success("Employee deleted Successfully",null));
+   }
+    /**
+     Get employees by department name
+     */
+   @GetMapping("/department/{departmentName}")
+    public ResponseEntity<ApiResponse<List<EmployeeSummaryDTO>>> getByDepartment(
+            @PathVariable String departmentName ) {
+       List<EmployeeSummaryDTO> employee = employeeService.getByDepartmentName(departmentName);
+       return ResponseEntity.ok(ApiResponseUtil.success("Employee fetched successfully",employee));
+   }
+
+    /**
+     Get employee by high salary employees
+     */
+   @GetMapping("/salary/{salary}")
+    public ResponseEntity<ApiResponse<List<EmployeeSummaryDTO>>> getBySalary (
+            @PathVariable double salary ) {
+       List<EmployeeSummaryDTO> employee = employeeService.getEmployeesWithSalaryGreaterThan(salary);
+       return ResponseEntity.ok(ApiResponseUtil.success("Employee fetched succssfully",employee));
+   }
+    /**
+     Search the employee by name
+     */
+   @GetMapping("/search/{keyword}")
+    public ResponseEntity<ApiResponse<List<EmployeeSummaryDTO>>> searchByName(
+            @PathVariable String keyword) {
+       List<EmployeeSummaryDTO> employee = employeeService.searchByName(keyword);
+       return ResponseEntity.ok(ApiResponseUtil.success("Employee fetched successfully",employee));
    }
 }
