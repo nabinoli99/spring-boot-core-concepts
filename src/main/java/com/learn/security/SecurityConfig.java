@@ -25,6 +25,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/departments").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/departments/*/employees").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/employees/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/employees/department/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/employees/salary/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/employees/search/*").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic -> {});
