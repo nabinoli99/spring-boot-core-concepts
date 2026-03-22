@@ -17,5 +17,8 @@ public interface EmployeeService {
     EmployeeResponseDTO updateEmployee (Long id , EmployeeUpdateRequestDTO request);
     void deleteEmployee(Long id);
     PageResponse<EmployeeSummaryDTO> getAllEmployeesPaginated(int page , int size , String sortBy, String sortDir );
+    List<EmployeeSummaryDTO> getByDepartmentName(String departmentName);
+    List<EmployeeSummaryDTO> getEmployeesWithSalaryGreaterThan(double salary);
+    List<EmployeeSummaryDTO> searchByName(String keyword);
 
 }
